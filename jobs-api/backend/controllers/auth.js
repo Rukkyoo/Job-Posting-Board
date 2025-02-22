@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 import { StatusCodes } from "http-status-codes";
-import jwt from "jsonwebtoken";
+
 
 export const register = async (req, res) => {
   /*  const { name, email, password } = req.body;
@@ -13,14 +13,7 @@ export const register = async (req, res) => {
       .json({ msg: "Please enter name, email and password" });
   } */
   const user = await User.create({ ...req.body });
-  const token = jwt.sign(
-    { userId: user._id, name: user.name },
-    "jwtsecret",
-    process.env.JWT_SECRET,
-    {
-      expiresIn: "30d",
-    }
-  );
+  const token = user.createJWT();
   res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token }); // returns username and token in the api response
 };
 
