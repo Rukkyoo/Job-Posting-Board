@@ -32,9 +32,15 @@ UserSchema.pre("save", async function (next) {
 }); // Hashes passwords with mongoose middleware
 
 UserSchema.methods.createJWT = function () {
-  return jwt.sign({ userId: this._id, name: this.name }, "jwtSecret", {
-    expiresIn: "30d",
+  return jwt.sign({ userId: this._id, name: this.name }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_LIFETIME,
   });
 }; // Instace method that creates unique jwt for each user that logs in
 
+UserSchema.methods.comparePassword = async function(candidatePassword) {
+const isMatch = await bcrypt.compare(candidatePassword, this.password);
+return isMatch;
+} // Instance method that compares the password entered by the user with the hashed password in the db
+
 export default mongoose.models.User || mongoose.model("User", UserSchema);
+
