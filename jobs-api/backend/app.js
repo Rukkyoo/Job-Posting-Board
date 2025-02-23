@@ -3,11 +3,12 @@ const app = express();
 import authRouter from "./routes/auth.js";
 import jobsRouter from "./routes/jobs.js";
 import connectDB from "./db/connect.js";
+import authenticateUser from "./middleware/authentication.js";
 import dotenv from "dotenv";
 app.use(express.static("./src"));
 app.use(express.json());
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/jobs", jobsRouter);
+app.use("/api/v1/jobs", authenticateUser, jobsRouter);
 dotenv.config();
 app.get("/", (req, res) => {
   res.send("Jobs api!");
@@ -28,6 +29,7 @@ const start = async () => {
 };
 
 start();
+
 
 
 

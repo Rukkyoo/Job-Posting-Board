@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
 
-export default const auth = (req, res, next) => {
+const auth = (req, res, next) => {
   // check header
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -21,3 +21,5 @@ export default const auth = (req, res, next) => {
     throw new Error("You are not authorized to access this route");
   }
 };
+
+export default auth;

@@ -34,3 +34,5 @@ export const login = async (req, res) => {
   const token = user.createJWT(); // creates a jwt token for the user
   res.status(StatusCodes.OK).json({ user: { name: user.name }, token }); // returns username and token in the api response
 };
+
+
