@@ -6,7 +6,7 @@ export const getSpecificJob = async (req, res) => {
     res.send("Get specific job");
   };
 export const createJob = async (req, res) => {
-    res.send("Create job");
+    res.json(req.user)
   };
 export const updateJob = async (req, res) => {
     res.send("Update job");
@@ -22,3 +22,6 @@ export const deleteJob = async (req, res) => {
     updateJob,
     deleteJob
   } */
+
+
+    

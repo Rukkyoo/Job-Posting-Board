@@ -4,11 +4,11 @@ import { StatusCodes } from "http-status-codes";
 
 const auth = (req, res, next) => {
   // check header
-  const authHeader = req.headers.authorization;
+  const authHeader = req.header("Authorization");
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res
       .status(StatusCodes.UNAUTHORIZED)
-      .json({ error: "You are not authorized to access this route" });
+      .json({ error: "Missing or invalid Authorization header" });
   }
   const token = authHeader.split(" ")[1];
 

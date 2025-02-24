@@ -22,7 +22,7 @@ export const login = async (req, res) => {
     throw new Error("Please provide email and password"); // checks for the absence of username in the mongodb
   }
   const user = await User.findOne({ email }); // finds specific email in the db
-  
+
   // compare password
   if (!user) {
     throw new Error("Invalid credentials"); // checks for the absence of user in the mongodb
@@ -34,5 +34,3 @@ export const login = async (req, res) => {
   const token = user.createJWT(); // creates a jwt token for the user
   res.status(StatusCodes.OK).json({ user: { name: user.name }, token }); // returns username and token in the api response
 };
-
-
