@@ -26,10 +26,44 @@ export const createJob = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ job });
 };
 export const updateJob = async (req, res) => {
-  res.send("Update job");
+  const {
+    body: { company, position, status },
+    user: { userId },
+    params: { id: jobId },
+  } = req; // destructuring
+  if (company === "" || position === "" || status === "") {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "company, position, and status are required" });
+  }
+  const job = await Job.findByIdAndUpdate(
+    { _id: jobId, createdBy: userId },
+    req.body,
+    { new: true, runValidators: true }
+  ); // find job by id and createdBy and update
+  if (!job) {
+    return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ msg: `No job with id ${jobId} found by user ${userId}` });
+  }
 };
 export const deleteJob = async (req, res) => {
-  res.send("Delete job");
+  const {
+    body: { company, position, status },
+    user: { userId },
+    params: { id: jobId },
+  } = req; // destructuring
+  if (company === "" || position === "" || status === "") {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "company, position, and status are required" });
+  }
+  const job = await Job.findByIdAndDelete({ _id: jobId, createdBy: userId }); // find job by id and createdBy and delete
+  if (!job) {
+    return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ msg: `No job with id ${jobId} found by user ${userId}` });
+  }
 };
 
 /*   export default {
