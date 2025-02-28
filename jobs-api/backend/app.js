@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 
 // extra security packages
 import helmet from "helmet";
-import xss from "xss-clean";
+/* import xss from "xss"; */
 import cors from "cors";
 import rateLimiter from "express-rate-limit";
 app.set("trust proxy", 1);
@@ -29,7 +29,7 @@ app.use("/api/v1/jobs", authenticateUser, jobsRouter);
 
 app.use(helmet());
 app.use(cors());
-app.use(xss());
+/* app.use(xss()); */
 
 dotenv.config();
 app.get("/", (req, res) => {
@@ -49,5 +49,6 @@ const start = async () => {
     console.log(error);
   }
 };
+
 
 start();
