@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Landing from "./frontendAuth/landing";
 import Register from "./frontendAuth/register";
-import Login from "./frontendAuth/login";
+import Login from "./frontendAuth/login"; 
 
 function App() {
   return (
