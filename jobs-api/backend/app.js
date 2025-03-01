@@ -22,13 +22,14 @@ app.use(
   })
 );
 
+app.use(helmet());
+app.use(cors());
 app.use(express.static("./src")); // serve static files
 app.use(express.json()); // parse json bodies
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", authenticateUser, jobsRouter);
 
-app.use(helmet());
-app.use(cors());
+
 /* app.use(xss()); */
 
 dotenv.config();
