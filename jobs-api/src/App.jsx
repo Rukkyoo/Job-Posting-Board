@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Register from "./frontendAuth/register.jsx";
-import Login from "./frontendAuth/login.jsx";
-import Landing from "./frontendAuth/landing.jsx";
+import Landing from "./frontendAuth/landing";
+import Register from "./frontendAuth/register";
+import Login from "./frontendAuth/login";
 
 function App() {
   return (
