@@ -4,6 +4,7 @@ import "./App.css";
 import Landing from "./frontendAuth/landing";
 import Register from "./frontendAuth/register";
 import Login from "./frontendAuth/login"; 
+import Jobs from "./frontendAuth/Jobs";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/jobs" element={<Jobs />} />
         </Routes>
       </Router>
     </>

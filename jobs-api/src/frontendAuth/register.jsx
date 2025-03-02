@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { useNavigate } from "react-router-dom"
 import axiosInstance from "../axiosInstancce";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
     name: "",
     email: "",
@@ -25,6 +26,7 @@ const Register = () => {
         "/auth/register",
         formData
       );
+      navigate("/jobs");
       console.log(response);
     } catch (error) {
       console.log(error);
