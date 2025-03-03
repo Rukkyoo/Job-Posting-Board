@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 import axiosInstance from "../axiosInstancce";
+/* import { UserContext } from "./UserContext"; */
 
 const Register = () => {
   const navigate = useNavigate();
@@ -10,6 +11,8 @@ const Register = () => {
     email: "",
     password: "",
   });
+
+/*   const { setUser } = React.useContext(UserContext); */
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,6 +29,9 @@ const Register = () => {
         "/auth/register",
         formData
       );
+/*       const { user } = response.data;
+      setUser(user); */
+
       navigate("/jobs");
       console.log(response);
     } catch (error) {
