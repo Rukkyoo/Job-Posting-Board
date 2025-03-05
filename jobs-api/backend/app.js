@@ -1,10 +1,14 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 const app = express();
 import authRouter from "./routes/auth.js";
 import jobsRouter from "./routes/jobs.js";
 import connectDB from "./db/connect.js";
 import authenticateUser from "./middleware/authentication.js";
-import dotenv from "dotenv";
+
+// dotenv.config();
+app.set("trust proxy", 1);
 
 // extra security packages
 import helmet from "helmet";
@@ -31,8 +35,6 @@ app.use("/api/v1/jobs", authenticateUser, jobsRouter);
 
 
 /* app.use(xss()); */
-
-dotenv.config();
 app.get("/", (req, res) => {
   res.send("Jobs api!");
 });

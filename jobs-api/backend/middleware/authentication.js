@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+// import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
 
@@ -18,7 +18,7 @@ const auth = (req, res, next) => {
     req.user = { userId: payload.userId, name: payload.name }; //attaches the user to the request object
     next();
   } catch (error) {
-    throw new Error("You are not authorized to access this route");
+    throw new Error("You are not authorized to access this route", error);
   }
 };
 
