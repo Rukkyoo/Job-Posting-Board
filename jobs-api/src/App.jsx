@@ -34,6 +34,7 @@ import Landing from "./frontendAuth/landing";
 import Register from "./frontendAuth/register";
 import Login from "./frontendAuth/login";
 import Jobs from "./frontendAuth/Jobs";
+import ViewJobs from "./frontendAuth/ViewJobs"
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/jobs" element={<Jobs />} />
+            <Route path="/view" element={<ViewJobs />} />
           </Routes>
         </Router>
       </UserProvider>

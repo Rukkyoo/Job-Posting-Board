@@ -25,6 +25,8 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log("clicked")
+      
       const response = await axiosInstance.post(
         "/auth/register",
         formData
@@ -34,6 +36,7 @@ const Register = () => {
 
       navigate("/jobs");
       console.log(response);
+      
     } catch (error) {
       console.log(error);
     }
