@@ -1,13 +1,13 @@
 import React from "react";
 import { IoMdAdd } from "react-icons/io";
 import { MdOutlineWorkOutline } from "react-icons/md";
+import { GoPencil } from "react-icons/go";
+import { CiTrash } from "react-icons/ci";
 import axiosInstance from "../axiosInstancce";
 import { UserContext } from "./UserContext";
-import { useNavigate } from "react-router-dom"
 import ViewJobs from "./ViewJobs";
 
 const Jobs = () => {
-    const navigate = useNavigate();
   const [openAddJobModal, setOpenAddJobModal] = React.useState(false);
   const [newJob, setNewJob] = React.useState({
     company: "",
@@ -19,7 +19,6 @@ const Jobs = () => {
 
   const handleOpenViewJobsModal = () => {
     setViewJobsModal(true);
-    navigate("/view");
   };
   const handleCloseViewJobsModal = () => {
     setViewJobsModal(false);
@@ -155,7 +154,55 @@ const Jobs = () => {
         )}
 
         {/* View Jobs Modal */}
-        
+        {viewJobsModal && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40">
+  <div className="bg-white h-[90vh] w-[90vw] md:w-[90vw] p-6 rounded-lg shadow-lg relative flex flex-col">
+    {/* Close Button */}
+    <button
+      onClick={handleCloseViewJobsModal}
+      className="absolute top-4 right-4 text-red-500 text-xl font-bold hover:text-red-700"
+    >
+      &times;
+    </button>
+    
+    {/* Modal Header */}
+    <h2 className="text-xl font-semibold text-center text-gray-800 mb-4">
+      View Job Applications
+    </h2>
+
+    {/* Scrollable Content */}
+    <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 rounded-md max-h-[75vh]">
+      <div className="flex flex-col gap-4 items-center">
+        <div className="bg-slate-200 rounded-md h-60 w-56 flex justify-start">
+          <CiTrash />
+          <GoPencil />
+        </div>
+        <div className="bg-slate-200 rounded-md h-60 w-56 flex items-center justify-center">
+          <CiTrash />
+          <GoPencil />
+        </div>
+        <div className="bg-slate-200 rounded-md h-60 w-56 flex items-center justify-center">
+          <CiTrash />
+          <GoPencil />
+        </div>
+        <div className="bg-slate-200 rounded-md h-60 w-56 flex items-center justify-center">
+          <CiTrash />
+          <GoPencil />
+        </div>
+        <div className="bg-slate-200 rounded-md h-60 w-56 flex items-center justify-center">
+          <CiTrash />
+          <GoPencil />
+        </div>
+        <div className="bg-slate-200 rounded-md h-60 w-56 flex items-center justify-center">
+          <CiTrash />
+          <GoPencil />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        )}
       </div>
     </div>
   );
