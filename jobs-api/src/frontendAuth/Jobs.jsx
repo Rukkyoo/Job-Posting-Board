@@ -155,53 +155,46 @@ const Jobs = () => {
 
         {/* View Jobs Modal */}
         {viewJobsModal && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40">
-  <div className="bg-white h-[90vh] w-[90vw] md:w-[90vw] p-6 rounded-lg shadow-lg relative flex flex-col">
-    {/* Close Button */}
-    <button
-      onClick={handleCloseViewJobsModal}
-      className="absolute top-4 right-4 text-red-500 text-xl font-bold hover:text-red-700"
-    >
-      &times;
-    </button>
-    
-    {/* Modal Header */}
-    <h2 className="text-xl font-semibold text-center text-gray-800 mb-4">
-      View Job Applications
-    </h2>
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40">
+            <div className="bg-white h-[90vh] w-[90vw] md:w-[90vw] p-6 rounded-lg shadow-lg relative flex flex-col">
+              {/* Close Button */}
+              <button
+                onClick={handleCloseViewJobsModal}
+                className="absolute top-4 right-4 text-red-500 text-xl font-bold hover:text-red-700"
+              >
+                &times;
+              </button>
 
-    {/* Scrollable Content */}
-    <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 rounded-md max-h-[75vh]">
-      <div className="flex flex-col gap-4 items-center">
-        <div className="bg-slate-200 rounded-md h-60 w-56 flex justify-start">
-          <CiTrash />
-          <GoPencil />
-        </div>
-        <div className="bg-slate-200 rounded-md h-60 w-56 flex items-center justify-center">
-          <CiTrash />
-          <GoPencil />
-        </div>
-        <div className="bg-slate-200 rounded-md h-60 w-56 flex items-center justify-center">
-          <CiTrash />
-          <GoPencil />
-        </div>
-        <div className="bg-slate-200 rounded-md h-60 w-56 flex items-center justify-center">
-          <CiTrash />
-          <GoPencil />
-        </div>
-        <div className="bg-slate-200 rounded-md h-60 w-56 flex items-center justify-center">
-          <CiTrash />
-          <GoPencil />
-        </div>
-        <div className="bg-slate-200 rounded-md h-60 w-56 flex items-center justify-center">
-          <CiTrash />
-          <GoPencil />
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+              {/* Modal Header */}
+              <h2 className="text-xl font-semibold text-center text-gray-800 mb-4">
+                View Job Applications
+              </h2>
 
+              {/* Scrollable Content */}
+              <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 rounded-md max-h-[75vh]">
+                <div className="flex flex-col gap-4 items-center">
+                  <div className="bg-slate-200 rounded-md h-60 w-68 flex flex-col justify-start">
+                    <div className="flex flex-row justify-between w-full bg-purple-400 h-8 rounded-t-md gap-2 p-2">
+                      <CiTrash />
+                      <GoPencil />
+                    </div>
+                    <div className="flex flex-col p-2 gap-3">
+                      <p>
+                        Company: <span className="font-bold">Google</span>
+                      </p>
+                      <p>
+                        Position: <span className="font-bold">Software Engineer(Frontend)</span>
+                      </p>
+                      <div className="flex flex-row justify-between gap-3">
+                        <p>Posted by: Michael</p>
+                        <p>Status: Pending</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>
