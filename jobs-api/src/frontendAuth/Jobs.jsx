@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import { GoPencil } from "react-icons/go";
@@ -16,10 +16,9 @@ const Jobs = () => {
   const [error, setError] = React.useState(null);
   const [viewJobsModal, setViewJobsModal] = React.useState(false);
   const { user, setUser } = React.useContext(UserContext);
+  const [availableJobs, setAvailableJobs] = useState([]);
+  const [newAvJob, setNewAvJob] = useState("");
 
-  const handleOpenViewJobsModal = () => {
-    setViewJobsModal(true);
-  };
   const handleCloseViewJobsModal = () => {
     setViewJobsModal(false);
     console.log("Modal opened");
@@ -43,8 +42,7 @@ const Jobs = () => {
     });
   };
 
-  const handleSubmitJob = async (e) => {
-    e.preventDefault();
+  const fetchJobs = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -53,18 +51,57 @@ const Jobs = () => {
     }
 
     try {
-      const response = await axiosInstance.post("/jobs", newJob, {
+      const response = await axiosInstance.get("/jobs", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response);
+      setAvailableJobs(response.data); // Update the availableJobs state
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
+      setError("Failed to fetch jobs. Please try again.");
+    }
+  };
+
+  const handleSubmitJob = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+  
+    if (!token) {
+      setError("No token found. Please log in.");
+      return;
+    }
+  
+    try {
+      await axiosInstance.post("/jobs", newJob, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      // Fetch the updated list of jobs
+      await fetchJobs();
+  
+      // Reset the form
+      setNewJob({
+        company: "",
+        position: "",
+      });
+  
+      // Close the modal
       handleCloseAddJobModal();
       setError(null); // Clear any previous errors
     } catch (error) {
       console.error("Error creating job:", error);
       setError("Failed to create job. Please try again.");
     }
+  };
+
+  const handleOpenViewJobsModal = async () => {
+    console.log("Opening View Jobs Modal");
+  console.log("Available Jobs:", availableJobs); 
+    await fetchJobs();
+    setViewJobsModal(true);
   };
 
   const handleLogout = () => {
@@ -172,25 +209,53 @@ const Jobs = () => {
 
               {/* Scrollable Content */}
               <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 rounded-md max-h-[75vh]">
-                <div className="flex flex-col gap-4 items-center">
-                  <div className="bg-slate-200 rounded-md h-60 w-68 flex flex-col justify-start">
-                    <div className="flex flex-row justify-between w-full bg-purple-400 h-8 rounded-t-md gap-2 p-2">
-                      <CiTrash />
-                      <GoPencil />
-                    </div>
-                    <div className="flex flex-col p-2 gap-3">
-                      <p>
-                        Company: <span className="font-bold">Google</span>
-                      </p>
-                      <p>
-                        Position: <span className="font-bold">Software Engineer(Frontend)</span>
-                      </p>
-                      <div className="flex flex-row justify-between gap-3">
-                        <p>Posted by: Michael</p>
-                        <p>Status: Pending</p>
+                <div className="flex flex-col gap-6 items-center">
+                  {availableJobs.map((job, index) => (
+                    <div
+                      key={index}
+                      className="bg-slate-200 rounded-lg shadow-lg w-80 flex flex-col justify-start overflow-hidden"
+                    >
+                      {/* Header Section */}
+                      <div className="flex flex-row px-6 py-3 items-center justify-between w-full bg-purple-400 gap-2">
+                        <CiTrash
+                          className="text-red-500 hover:text-red-600 cursor-pointer transition-colors"
+                          size={25}
+                        />
+                        <GoPencil
+                          className="text-slate-700 hover:text-slate-800 cursor-pointer transition-colors"
+                          size={25}
+                        />
+                      </div>
+                      {/* Content Section */}
+                      <div className="flex flex-col px-6 py-4 gap-4">
+                        <p className="text-slate-700">
+                          Company:{" "}
+                          <span className="font-bold text-slate-900 ml-2">
+                            {job.company}
+                          </span>
+                        </p>
+                        <p className="text-slate-700">
+                          Position:{" "}
+                          <span className="font-bold text-slate-900 ml-2"></span>
+                        </p>
+                        <div className="flex flex-row justify-between gap-3">
+                          <p className="text-slate-700">
+                            Posted by:{" "}
+                            <span className="font-bold text-slate-900 ml-2">{user ? user.name : "Unknown"}</span>
+                          </p>
+                          <p className="text-slate-700">
+                            Status:{" "}
+                            <span className="font-bold text-purple-600 ml-2"></span>
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Footer Section (Optional) */}
+                      <div className="mt-auto px-6 py-3 bg-slate-100 border-t border-slate-300">
+                        <p className="text-sm text-slate-500">Last updated:</p>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
