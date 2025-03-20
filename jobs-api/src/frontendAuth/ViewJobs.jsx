@@ -10,7 +10,7 @@ const ViewJobs = () => {
         <h1 className="text-center text-2xl">View Jobs</h1>
       </div>
       <div>
-        
+        hi world
       </div>
     </div>
   );
