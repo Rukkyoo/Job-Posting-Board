@@ -56,7 +56,8 @@ const Jobs = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setAvailableJobs(response.data); // Update the availableJobs state
+      console.log("Jobs fetched successfully:", response.data);
+      setAvailableJobs(response.data.jobs); // Update the availableJobs state
     } catch (error) {
       console.error("Error fetching jobs:", error);
       setError("Failed to fetch jobs. Please try again.");
@@ -98,8 +99,6 @@ const Jobs = () => {
   };
 
   const handleOpenViewJobsModal = async () => {
-    console.log("Opening View Jobs Modal");
-  console.log("Available Jobs:", availableJobs); 
     await fetchJobs();
     setViewJobsModal(true);
   };
@@ -236,23 +235,23 @@ const Jobs = () => {
                         </p>
                         <p className="text-slate-700">
                           Position:{" "}
-                          <span className="font-bold text-slate-900 ml-2"></span>
+                          <span className="font-bold text-slate-900 ml-2">{job.position}</span>
                         </p>
                         <div className="flex flex-row justify-between gap-3">
                           <p className="text-slate-700">
                             Posted by:{" "}
-                            <span className="font-bold text-slate-900 ml-2">{user ? user.name : "Unknown"}</span>
+                            <span className="font-bold text-slate-900 ml-2">You</span>
                           </p>
                           <p className="text-slate-700">
                             Status:{" "}
-                            <span className="font-bold text-purple-600 ml-2"></span>
+                            <span className="font-bold text-purple-600 ml-2">{job.status}</span>
                           </p>
                         </div>
                       </div>
 
                       {/* Footer Section (Optional) */}
                       <div className="mt-auto px-6 py-3 bg-slate-100 border-t border-slate-300">
-                        <p className="text-sm text-slate-500">Last updated:</p>
+                        <p className="text-sm text-slate-500">Last updated: {job.updatedAt}</p>
                       </div>
                     </div>
                   ))}
